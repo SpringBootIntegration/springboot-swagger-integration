@@ -15,27 +15,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.edurt;
+package com.edurt.controller;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
- * SpringBootSwaggerIntegrationLaunch <br/>
- * 描述 : SpringBootSwaggerIntegrationLaunch <br/>
+ * SwaggerController <br/>
+ * 描述 : SwaggerController <br/>
  * 作者 : qianmoQ <br/>
  * 版本 : 1.0 <br/>
- * 创建时间 : 2018-05-09 上午12:31 <br/>
+ * 创建时间 : 2018-05-09 下午11:32 <br/>
  * 联系作者 : <a href="mailTo:shichengoooo@163.com">qianmoQ</a>
  */
-@SpringBootApplication
-// 启用swagger扫描接口
-@EnableSwagger2
-public class SpringBootSwaggerIntegrationLaunch {
+@RestController
+public class SwaggerController {
 
-    public static void main(String[] args) {
-        SpringApplication.run(SpringBootSwaggerIntegrationLaunch.class, args);
+    @RequestMapping(value = "info", method = RequestMethod.GET)
+    String info() {
+        return "我是Swagger测试示例";
     }
 
 }
