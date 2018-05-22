@@ -17,13 +17,9 @@
  */
 package com.edurt.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.edurt.bean.SwaggerBean;
+import io.swagger.annotations.*;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * SwaggerController <br/>
@@ -47,6 +43,34 @@ public class SwaggerController {
     @RequestMapping(value = "info", method = RequestMethod.GET)
     String info() {
         return "我是Swagger测试示例";
+    }
+
+    /**
+     * 直接通过路径进行传输数据
+     */
+    @ApiOperation(value = "通过路径传递参数")
+    // 开始进行数据的传输
+    @ApiImplicitParams(
+            // dataType 对应数据参数的类型
+            // paramType 对应参数的传递方式  path/body/header/form
+            // 需要注意的是: 传递的参数必须与swagger api注解参数一致
+            @ApiImplicitParam(name = "id", value = "我是传输的数据title", required = true, dataType = "String", paramType = "path")
+    )
+    @RequestMapping(value = "info/path/{id}", method = RequestMethod.GET)
+    String infoByPath(@PathVariable(name = "id") String id) {
+        return "我是Swagger文档,用于标识路径传递数据 " + id;
+    }
+
+    /**
+     * 通过form表单传输数据
+     */
+    @ApiOperation(value = "通过form表单传递参数")
+    @ApiImplicitParams(
+            @ApiImplicitParam(name = "bean", value = "我是传递的form数据", required = false, dataType = "SwaggerBean", paramType = "body")
+    )
+    @RequestMapping(value = "info/form", method = RequestMethod.POST)
+    String infoByForm(@RequestBody SwaggerBean bean) {
+        return bean.toString();
     }
 
 }
